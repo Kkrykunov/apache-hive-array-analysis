@@ -1,44 +1,35 @@
-# Спочатку перевіримо та створимо необхідні HDFS директорії
+# Apache Hive Array Analysis
 
-## Description
+Element-wise array operations on large datasets using Apache Hive + HDFS. Academic project exploring distributed array manipulation at scale.
 
-!/content/hive/bin/hive --service metastore & !/content/hive/bin/hive -e "CREATE DATABASE IF NOT EXISTS testdb; USE testdb; SHOW TABLES;" !/content/hadoop/bin/hadoop fs -mkdir -p /user/hive/warehouse Перший запит показав наші масиви: Поелементне множення елементів масивів (кожен елемент array1 по...
+## Use Case
 
-## Project Structure
+Computes element-wise multiplication and aggregation over columnar array data stored in Hive tables. Designed for datasets too large for single-node processing.
 
-- `notebooks/`: Jupyter notebooks containing the analysis
-- `src/`: Source code extracted from notebooks
-- `data/`: Data files used in the project
+## Stack
 
-## Setup and Installation
+- Apache Hive 3.x
+- Hadoop / HDFS
+- HQL (Hive Query Language)
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/Untitled5_clean_clean_clean.git
-cd Untitled5_clean_clean_clean
+## Setup
 
-# Create a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-## Usage
-
-You can run the Jupyter notebooks to see the full analysis:
+Requires a running Hive/HDFS cluster.
 
 ```bash
-jupyter notebook notebooks/
+# Start Hive CLI
+hive
+
+# Run analysis
+hive -f analysis.hql
 ```
 
-Or you can use the extracted Python modules:
+## Queries Covered
 
-```bash
-python src/main.py
-```
+- Element-wise array multiplication via `posexplode()`
+- Aggregate functions over nested arrays
+- HDFS-backed external table creation
 
-## License
+## Output
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Aggregated results written back to HDFS as delimited text.
